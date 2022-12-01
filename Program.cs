@@ -144,6 +144,7 @@ int [,] ReverseValueInArrayAroundDiadonale(int [,] array)
             }
         }
     }
+    Console.WriteLine();
     // возвращаем новый массив
     return array;
 }
