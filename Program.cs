@@ -204,18 +204,18 @@ int [,] findMinValueAndPutZeroOnRowsAndColums(int[,] array)
     {
         for (int j = 0; j < array.GetLength(1); j++)
         {
+            // находи минимальное значение
             if (array[i,j] < minValue) 
             {
                 minValue = array[i,j];
                 rows = i;
                 colums = j;
-
             }
 
         }
     }
     for (int i = 0; i < array.GetLength(0); i++) array [i, colums] = 0; // зануляем столбцы
-    for (int j = 0; j < array.GetLength(0); j++) array [rows, j] = 0; // зануляем строки
+    for (int j = 0; j < array.GetLength(1); j++) array [rows, j] = 0; // зануляем строки
     Console.WriteLine();
     return array;
 }
