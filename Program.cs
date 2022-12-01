@@ -96,6 +96,79 @@
 //7 2 2 6
 //2 3 4 7
 
+// int[,] CreateRandom2DArray(int rows, int columns, int minValue, int maxValue)  
+// {                                                                           
+//   int[,] newArray = new int[rows, columns];  
+
+//   for (int i = 0; i < rows; i++)
+//   {
+//      for(int j = 0; j < columns; j++)
+//      {
+//        newArray[i,j] = new Random().Next(minValue,maxValue + 1);
+//      }
+//   }
+//   return newArray;    
+// }
+
+// void Show2DArray(int[,] array)
+// {
+//     for(int i = 0;i < array.GetLength(0) ;i++ ) 
+//     {
+//         for(int j = 0; j < array.GetLength(1); j++)  
+//         {
+//            Console.Write(array[i,j] + " ");
+//         }
+//         Console.WriteLine(); 
+//     }
+// }
+
+// int [,] ReverseValueInArrayAroundDiadonale(int [,] array)
+// {
+//     // отсекаем оишбку ввода пользователя
+//     if (array.GetLength(0) != array.GetLength(1))
+//     {
+//         Console.WriteLine("Невозможно развернуть массив. Массив должен быть квадратным (rows=colums)");
+//         return array;
+//     }
+
+//     // меняем местами элементы вокруг главной диагонали
+//     else
+//     {
+//         for (int i = 0; i < array.GetLength(0) - 1; i++) // идём по строчкам, исключаем элемент главной диагонали
+//         {
+//             for (int j = i + 1; j < array.GetLength(0); j++) // идём по столбцам
+//             {
+//                 int temp = array[i,j];
+//                 array[i,j] = array[j,i];
+//                 array[j,i] = temp;
+//             }
+//         }
+//     }
+//     Console.WriteLine();
+//     // возвращаем новый массив
+//     return array;
+// }
+
+// // Пользовательский ввод
+// Console.Write("Введите количество строк ");
+// int rows = Convert.ToInt32(Console.ReadLine());
+// Console.Write("Введите количество столбцов ");
+// int colums = Convert.ToInt32(Console.ReadLine());
+// Console.Write("Введите минимальное значение ");
+// int min = Convert.ToInt32(Console.ReadLine());
+// Console.Write("Введите максимальное значение ");
+// int max = Convert.ToInt32(Console.ReadLine());
+
+// int[,] oldArray = CreateRandom2DArray(rows, colums, min, max);
+// Show2DArray (oldArray);
+// oldArray = ReverseValueInArrayAroundDiadonale(oldArray);
+// Show2DArray (oldArray);
+
+//Задание 3. Из двумерного массива целых чисел удалить строку и столбец, 
+// на пересечении которых расположен наименьший элемент.
+// то есть удалаем и строку и столбец в которой находится этот элемент
+
+
 int[,] CreateRandom2DArray(int rows, int columns, int minValue, int maxValue)  
 {                                                                           
   int[,] newArray = new int[rows, columns];  
@@ -122,34 +195,32 @@ void Show2DArray(int[,] array)
     }
 }
 
-int [,] ReverseValueInArrayAroundDiadonale(int [,] array)
+int [,] findMinValueAndPutZeroOnRowsAndColums(int[,] array)
 {
-    // отсекаем оишбку ввода пользователя
-    if (array.GetLength(0) != array.GetLength(1))
-    {
-        Console.WriteLine("Невозможно развернуть массив. Массив должен быть квадратным (rows=colums)");
-        return array;
-    }
+    int rows = 0; int colums = 0; // Задаем начало
+    int minValue = array[rows,colums]; // минимальное значение для начала
 
-    // меняем местами элементы вокруг главной диагонали
-    else
+    for (int i = 0; i < array.GetLength(0); i++)
     {
-        for (int i = 0; i < array.GetLength(0) - 1; i++) // идём по строчкам, исключаем элемент главной диагонали
+        for (int j = 0; j < array.GetLength(1); j++)
         {
-            for (int j = i + 1; j < array.GetLength(0); j++) // идём по столбцам
+            if (array[i,j] < minValue) 
             {
-                int temp = array[i,j];
-                array[i,j] = array[j,i];
-                array[j,i] = temp;
+                minValue = array[i,j];
+                rows = i;
+                colums = j;
+
             }
+
         }
     }
+    for (int i = 0; i < array.GetLength(0); i++) array [i, colums] = 0; // зануляем столбцы
+    for (int j = 0; j < array.GetLength(0); j++) array [rows, j] = 0; // зануляем строки
     Console.WriteLine();
-    // возвращаем новый массив
     return array;
 }
 
-// Пользовательский ввод
+// // Пользовательский ввод
 Console.Write("Введите количество строк ");
 int rows = Convert.ToInt32(Console.ReadLine());
 Console.Write("Введите количество столбцов ");
@@ -161,5 +232,5 @@ int max = Convert.ToInt32(Console.ReadLine());
 
 int[,] oldArray = CreateRandom2DArray(rows, colums, min, max);
 Show2DArray (oldArray);
-oldArray = ReverseValueInArrayAroundDiadonale(oldArray);
+oldArray = findMinValueAndPutZeroOnRowsAndColums(oldArray);
 Show2DArray (oldArray);
